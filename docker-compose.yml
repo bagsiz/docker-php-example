@@ -1,0 +1,65 @@
+version: '2'
+
+services:
+    app1:
+        build: ./app1
+        working_dir: /var/www/app/public
+        container_name: app1
+        restart: always
+        volumes:
+            - ./app1:/var/www/app
+        ports:
+            - "8081:8080"
+        networks:
+            - docker-stack-network
+
+    app2:
+        build: ./app2
+        working_dir: /var/www/app/public
+        container_name: app2
+        restart: always
+        volumes:
+            - ./app2:/var/www/app
+        ports:
+            - "8082:8080"
+        networks:
+            - docker-stack-network
+
+    app3:
+        build: ./app3
+        working_dir: /var/www/app/public
+        container_name: app3
+        restart: always
+        volumes:
+            - ./app3:/var/www/app
+        ports:
+            - "8083:8080"
+        networks:
+            - docker-stack-network
+
+    app-redis:
+        image: redis
+        container_name: app-redis
+        restart: always
+        ports:
+            - "8087:6379"
+        networks:
+            - docker-stack-network
+
+    app-mysql:
+        image: mysql:latest
+        container_name: app-mysql
+        restart: always
+        ports:
+            - 8088:3306
+        networks:
+            - docker-stack-network
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: app-mysql
+            MYSQL_USER: user
+            MYSQL_PASSWORD: pass
+            MYSQL_ROOT_HOST: "%"
+networks:
+    docker-stack-network:
+        driver: bridge
