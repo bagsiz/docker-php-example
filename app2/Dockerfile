@@ -1,5 +1,5 @@
 # Pull base image.
-FROM nurettintopal/docker-php:latest
+FROM nurettintopal/docker-php:php-7.2
 
 MAINTAINER Nurettin Topal "nurettintopal@gmail.com"
 
